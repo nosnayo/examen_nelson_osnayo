@@ -1,0 +1,16 @@
+<div class="card mx-auto" style="width: 80%;">
+  <img src="/public/img/{{imagen}}" class="card-img-top" alt="{{imagen}}" height="250px">
+  <div class="card-body">
+    <h5 class="card-title">{{titulo}}</h5>
+    <p class="card-text">{{contenido}}</p>
+    <p class="card-text">Likes: {{like}} - Dislike: {{dislike}}</p>
+    <p class="card-text">Fecha publicación noticia: {{fecha}}</p>
+    <p class="card-text">Categoria: {{categoria}}</p>
+    <p class="card-text">Autor: {{autor}}</p>
+    <button class="btn" id="green"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i></button>
+    <button class="btn" id="red"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i></button>
+    <div class="d-flex justify-content-evenly">
+        <a onclick="irDetalle({{idNoticia}})" class="btn btn-primary">Ver detalles</a>
+    </div>
+  </div>
+</div>

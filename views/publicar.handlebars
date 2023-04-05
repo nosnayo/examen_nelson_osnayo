@@ -1,0 +1,67 @@
+<h2 class="text-center">Ruta publicar / protegida</h2>
+
+
+{{#if error}}
+<h2 class="text-center mt-3">{{error}}</h2>
+
+{{else}}
+    <h3 class="text-center">Usuario: {{usuario.email}}</h3>
+
+    <form action="" id="addNoticia">
+        Titulo de la noticia: <input type="text" id="addTitulo" name="titulo" required>
+        Contenido de la noticia: <textarea name="contenido" cols="30" rows="10" id="addContenido" required></textarea>
+        Seleccione una categoría:
+        <select name="idCategoria" id="addCategoria" required>
+            {{#each categorias}}
+            <option value="{{this.id}}">{{this.nombre}}</option>
+            {{/each}}
+        </select>
+        Imagen: <input type="file" name="foto" required>
+        <button class="btn btn-primary mt-3" type="submit">Enviar</button>
+    </form>
+
+{{/if }}
+
+
+<script>
+
+    let formulario = document.getElementById("addNoticia");
+    formulario.addEventListener("submit", (event) => {
+        event.preventDefault();
+        console.log(addTitulo.value, addContenido.value, addCategoria.value)
+        //REQUEST AL SERVIDOR PARA PUBLICAR LA NOTICIA*
+
+        let myHeaders = new Headers();
+        myHeaders.append("authorization", "Bearer " + localStorage.getItem("jwt"));
+
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: new FormData(formulario),
+            redirect: 'follow'
+        };
+
+        fetch("/api/v1/publicar", requestOptions)
+        .then(response => {
+            if(response.status == 413){
+                return alert("Imagen supera el limite permitido")
+            }
+            return response.json()
+        })
+        .then(result => {
+            if(result.code ==201){
+                alert(result.message)
+                formulario.reset();
+            }else{
+                alert(result.message)
+            }
+        })
+        .catch(error => console.log('error', error));
+    })
+</script>
+
+<style>
+    #addNoticia input, textarea, select{
+        display: block;
+    }
+</style>

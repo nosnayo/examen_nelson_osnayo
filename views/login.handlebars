@@ -1,0 +1,46 @@
+
+<form action="" id="formLogin">
+    Email: <input type="email" class="from-control" id="loginEmail" required>
+    Password: <input type="password" class="from-control" id="loginPassword" required>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+
+<script>
+
+    let formLogin = document.getElementById("formLogin");
+
+    formLogin.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+        "email": loginEmail.value,
+        "password": loginPassword.value
+        });
+
+        var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+        };
+
+        fetch("/api/v1/login", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            if(result.code == 200){
+                alert("Usuario autenticado con éxito.")
+                localStorage.setItem("jwt", result.token)
+                location.href = "/";
+            }else if(result.code == 401){
+                alert(result.message)
+            }else{
+                alert("Login fallido.")
+            }
+        })
+        .catch(error => console.log('error', error));
+    })
+</script>

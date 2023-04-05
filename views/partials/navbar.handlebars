@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">PRINCIPAL</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0"><!--me-auto por ms-auto-->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/consulta1">Categoría Tecnología</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/consulta2">Categoría Salud</a>
+        </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/publicar" id="linkPublicar">Publicar</a>
+        </li>
+        </li>
+            <li class="nav-item">
+          <a class="nav-link" href="/login" id="linkLogin">Login</a>
+        </li>
+        </li>
+            <li class="nav-item">
+          <a class="nav-link" href="/registro" id="linkRegistro">Registro</a>
+        </li>
+        </li>
+            <li class="nav-item">
+          <a class="nav-link" href="#" id="linkLogout">Logout</a>
+        </li>
+
+      </ul>  
+    </div>
+  </div>
+</nav>
+
+<script>
+    let token = localStorage.getItem('jwt');
+
+    let linkPublicar = document.getElementById("linkPublicar");
+    let linkLogout = document.getElementById("linkLogout");
+
+    
+    if(token){
+        linkLogin.style.display = "none";
+        linkRegistro.style.display = "none";
+    }else{
+        linkPublicar.style.display = "none";
+        linkLogout.style.display = "none";
+    }
+
+    linkPublicar.addEventListener("click", (event) => {
+        event.preventDefault();
+        if(token){
+            location.href = "/publicar?token="+token
+        }else{
+            alert("Debe loguearse para obtener permisos a esa ruta.")
+        }
+    })
+
+    
+
+    linkLogout.addEventListener("click", (event) => {
+        localStorage.clear();
+        location.href = "/";
+    })
+</script>

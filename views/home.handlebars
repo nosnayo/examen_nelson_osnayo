@@ -1,0 +1,31 @@
+<h2 class="text-center mt-3"> Ultimas noticias</h2>
+
+<section class="py-5">
+    <div class="d-flex justify-content-center py-5">
+        <a href="/?order=asc" class="btn btn-secondary mx-2">Ascendente</a>
+        <a href="/?order=desc" class="btn btn-secondary mx-2">Descendente</a>
+    </div>
+    
+
+
+    {{#if error}}
+        <h2 class="text-center mt-2">{{error}}</h2>
+    {{else}}
+    <div class="row">
+         {{#each noticias}}
+                <div class="col-12 col-md-6 col-lg-4 mt-2">
+                    {{>card
+                    id=this.id
+                    idNoticia=this.id
+                    imagen=this.imagen
+                    titulo=this.titulo
+                    contenido=this.contenido
+                    fecha = this.fecha
+                    autor = this.autor
+                    }}
+                </div>
+        {{/each}}
+    </div>
+       
+    {{/if}}
+</section>
